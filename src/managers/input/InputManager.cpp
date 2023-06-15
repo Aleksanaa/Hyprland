@@ -428,7 +428,8 @@ void CInputManager::onMouseButton(wlr_pointer_button_event* e) {
     m_tmrLastCursorMovement.reset();
 
     if (e->state == WLR_BUTTON_PRESSED) {
-        m_lCurrentlyHeldButtons.push_back(e->button);
+	wlr_seat_pointer_notify_button(g_pCompositor->m_sSeat.seat, 0, e->button, WLR_BUTTON_RELEASED);
+        //m_lCurrentlyHeldButtons.push_back(e->button);
     } else {
         if (std::find_if(m_lCurrentlyHeldButtons.begin(), m_lCurrentlyHeldButtons.end(), [&](const auto& other) { return other == e->button; }) == m_lCurrentlyHeldButtons.end())
             return;

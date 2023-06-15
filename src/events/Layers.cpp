@@ -107,6 +107,9 @@ void Events::listener_destroyLayerSurface(void* owner, void* data) {
 void Events::listener_mapLayerSurface(void* owner, void* data) {
     SLayerSurface* layersurface = (SLayerSurface*)owner;
 
+    g_pInputManager->releaseAllMouseButtons();
+    wlr_seat_pointer_notify_clear_focus(g_pCompositor->m_sSeat.seat);
+
     Debug::log(LOG, "LayerSurface %lx mapped", layersurface->layerSurface);
 
     layersurface->layerSurface->mapped = true;
